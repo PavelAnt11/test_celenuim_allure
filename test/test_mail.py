@@ -5,12 +5,11 @@ import time
 from PageObject import StartPage, YandexMail
 # blocker , critical, normal, minor, trivial
 
-# USERNAME = "demariohermann@yandex.ru"
-# PASSWORD = "sfdfAKP3jmJ8CBr"
+USERNAME = "demariohermann@yandex.ru"
+PASSWORD = "sfdfAKP3jmJ8CBr"
 
 
-USERNAME = "malyh.mix@yandex.ru"
-PASSWORD = "2KxTn4Dy4!apd"
+
 
 @allure.feature('Открытие страницы')
 @allure.story('Открываем стартовую yandex')
