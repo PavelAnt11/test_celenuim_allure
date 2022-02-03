@@ -1,9 +1,8 @@
 import pytest
 from selenium import webdriver
-USERNAME = "malyh.mix@yandex.ru"
-PASSWORD = "mie6cmLi"
-# USERNAME = "demariohermann@yandex.ru"
-# PASSWORD = "sfdfAKP3jmJ8CBr"
+USERNAME = "test_mail@test.ru"
+PASSWORD = "your_password"
+
 TIMESLEEP = 10
 STARTPAGE = 'https://yandex.ru/'
 message_header_text = 'Simbirsoft Тестовое задание\n'
