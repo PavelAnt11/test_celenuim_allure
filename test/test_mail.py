@@ -1,44 +1,27 @@
-import pytest
 import allure
-from PageObjectFolder.Locators import Locator
-from PageObjectFolder.PageObject import YandexMail
-from PageObjectFolder.conftest import message_header_text, USERNAME, PASSWORD, browser
+from Pages.start_page import StartPage
+from conftest import STARTPAGE
 
 
-@allure.feature('Открытие страницы')
-@allure.story('Открываем стартовую yandex')
-@allure.severity('blocker')
-def test_start_page(browser):
-    main_page = YandexMail(browser)
-    main_page.get_site()
-    assert main_page.browser.title == 'Яндекс'
-
-    main_page.click_on_the_button(Locator.button_post)
-    main_page.enter_text(Locator.text_area_id, USERNAME)
-    main_page.click_on_the_button(Locator.button_enter)
-
-    main_page.enter_text(Locator.text_area_passwrd, PASSWORD)
-    main_page.click_on_the_button(Locator.button_enter)
-
-    main_page.click_on_the_button(Locator.button_post_after_enter)
-    main_page.browser.switch_to.window(browser.window_handles[1])
-
-    main_page.click_on_the_button(Locator.incoming_messages)
-
-    main_page.click_on_the_button(Locator.into_search_field)
-    main_page.enter_text(Locator.find_all_message_with_title, message_header_text)
-
-    text_body_letter = main_page.find_element(Locator.button_search)
-    text_body_letter = text_body_letter.text  # В этой переменной количество найденных писем с нашей темой
-
-    main_page.click_on_the_button(Locator.button_write_letter)
-
-    main_page.enter_text(Locator.field_whom, USERNAME)
-    main_page.enter_text(Locator.field_header_letter, 'Simbirsoft Тестовое задание, Антюфеев.')
-    main_page.click_on_the_button(Locator.field_body_letter_make_active)
-    letter = main_page.enter_text(Locator.field_body_letter, text_body_letter)
-    letter.send_keys(Locator.send_message)
-
-
-if __name__ == '__main__':
-    pytest.main(['-s', '-q', '--alluredir', './report/xml'])
+@allure.severity('minor')
+def test_start_page(browser, user_email, user_password):
+    main_page = StartPage(browser, STARTPAGE)
+    main_page.open()
+    main_page.should_be_yandex_page()
+    auth_page = main_page.open_authorization_page()
+    auth_page.login_input(user_email)
+    auth_page.should_be_valid_email()
+    auth_page.password_input(user_password)
+    auth_page.should_be_valid_password()
+    post_page = main_page.open_post_page()
+    post_page.change_current_window()
+    post_page.write_title_for_search()
+    post_page.open_only_input_letter()
+    post_page.should_be_input_letter()
+    text_body_letter = post_page.get_number_of_selected_letter()
+    letter_page = post_page.open_new_letter()
+    letter_page.enter_whom_send_letter(user_email)
+    letter_page.enter_header_of_send_letter()
+    letter_page.fill_in_body_of_letter(text_body_letter)
+    letter_page.send_new_letter()
+    letter_page.should_letter_be_sent()
