@@ -1,9 +1,17 @@
-# test_celenuim_allure
-Тестовое задание</br>
+# Тестовое задание на вакансию Разработчик в тестировании
+## Запуск
 1) Скачал Selenium Server с оф. сайта в отдельную папку
 2) Поднимал Grid сервер командой  $ java -jar selenium-server-4.1.2.jar hub </br>
 3) Регистрация node  $ java -jar selenium-server-4.1.2.jar node </br>
 4) pip install -r requirements.txt
-5)  Запуск теста: pytest --alluredir="results" --email=your.email@test.ru --password=your_password
-
-
+5) Запуск теста: pytest --alluredir="results" --email=your.email@test.ru --password=your_password 
+## Тестовое задание</br>
+- С помощью Selenium открыть браузер, открыть страницу выше указанной
+почты(andex.ru) и авторизоваться; 
+- Спомощью Selenium определить сколько во входящих нашлось писем с
+темой «Simbirsoft Тестовое задание»; 
+- С помощью Selenium и интерфейса почты написать/отправить письмо на
+этот же почтовый ящик, в тексте которого указать найденное в шаге 3
+количество писем. Указать тему письма «Simbirsoft Тестовое задание.
+<Фамилия>», где <Фамилия> - это Ваша фамилия; 
+- Оформить эти действия в виде теста.
